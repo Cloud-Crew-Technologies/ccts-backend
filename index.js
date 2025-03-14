@@ -6,6 +6,8 @@ import login from "./Routes/loginroute.js";
 
 dotenv.config({ path: `.env` });
 
+app.use(cors());
+
 const app = express();
 app.use(express.json());
 
