@@ -10,7 +10,7 @@ const router = e.Router();
 
 router.route("/login").post(loginuser);
 
-router.route("/signup").post(resumeUpload, signuser);
+router.route("/signup").post(signuser);
 
 router.route("/getresume").get(getUserResume);
 
