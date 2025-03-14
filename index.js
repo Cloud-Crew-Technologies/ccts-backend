@@ -6,19 +6,16 @@ import login from "./Routes/loginroute.js";
 
 dotenv.config({ path: `.env` });
 
-
-
 const app = express();
 app.use(express.json());
 
-const corsOptions = {
+app.use(
+  cors({
     origin: "http://localhost:5173",
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    preflightContinue: false,
-    optionsSuccessStatus: 200,
-  };
-
-app.use(cors(corsOptions));
+    methods: "GET,POST,PUT,DELETE",
+    credentials: true,
+  })
+);
 
 const DB_URL = process.env.DATABASE_URI;
 
