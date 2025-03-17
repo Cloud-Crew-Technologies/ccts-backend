@@ -1,6 +1,7 @@
 import {
   loginUserService,
   signUserServices,
+  getUser,
 } from "../services/loginservices.js";
 import { BADREQUEST, SUCCESS } from "../constant/statuscode.js";
 import multer from "multer";
@@ -65,10 +66,10 @@ export const signuser = async (req, res) => {
 };
 
 export const loginuser = async (req, res, next) => {
-  const {email, password } = req.body;
+  const { email, password } = req.body;
 
   try {
-    const user = await loginUserService(email,password);
+    const user = await loginUserService(email, password);
 
     if (!user) {
       return next(new Error("Email or password is incorrect"));
@@ -98,5 +99,21 @@ export const getUserResume = async (req, res) => {
       message: "Resume not found",
       error: error.message,
     });
+  }
+};
+
+export const getUserbyID = async (req, res, next) => {
+  const { uniqueid } = req.params;
+  if (uniqueid===null) {
+    console.log("invalid request id is empty");
+    return next(new AppError(error.message, BADREQUEST));
+  }
+  const user = await getUser(uniqueid);
+  if (user) {
+    return res.status(200).send(user);
+  } else {
+    return res.status(404).send({
+      message: "User not found",
+      });
   }
 };

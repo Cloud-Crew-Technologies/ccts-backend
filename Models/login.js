@@ -70,16 +70,16 @@ const LoginSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  resume: {
-    fileId: mongoose.Schema.Types.ObjectId,
-    filename: String,
-    contentType: String,
-    uploadDate: {
-      type: Date,
-      default: Date.now,
-    },
-    size: Number,
-  },
+  // resume: {
+  //   fileId: mongoose.Schema.Types.ObjectId,
+  //   filename: String,
+  //   contentType: String,
+  //   uploadDate: {
+  //     type: Date,
+  //     default: Date.now,
+  //   },
+  //   size: Number,
+  // },
   uniqueid:{
     type: Number,
     unique: true,

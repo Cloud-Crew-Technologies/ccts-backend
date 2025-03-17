@@ -88,3 +88,12 @@ export const getResumeForUser = async (userId) => {
     throw error;
   }
 };
+
+export const getUser = async (uniqueid) => {
+  try {
+    const result = await Login.findOne({ uniqueid: uniqueid });
+    return result;
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
