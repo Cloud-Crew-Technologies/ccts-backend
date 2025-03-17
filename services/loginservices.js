@@ -28,9 +28,9 @@ export const loginUserService = async (email, password) => {
 
 export const signUserServices = async (data, resumeFile) => {
   try {
-    if (!resumeFile) {
-      throw new Error("Resume file is required");
-    }
+    // if (!resumeFile) {
+    //   throw new Error("Resume file is required");
+    // }
 
     const userData = {
       name: data.name,
