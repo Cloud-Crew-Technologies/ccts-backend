@@ -40,11 +40,11 @@ export const signuser = async (req, res) => {
     console.log(req.body);
     console.log(req.files);
 
-    if (!req.files || Object.keys(req.files).length === 0) {
-      return res.status(BADREQUEST).send({
-        message: "No files were uploaded.",
-      });
-    }
+    // if (!req.files || Object.keys(req.files).length === 0) {
+    //   return res.status(BADREQUEST).send({
+    //     message: "No files were uploaded.",
+    //   });
+    // }
 
     // const resumeFile = req.files.resume;
 
