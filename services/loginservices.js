@@ -52,6 +52,7 @@ export const signUserServices = async (data, resumeFile) => {
     };
     const user = new Login(userData);
     user.setPassword(data.password);
+    user.hash = user.setPassword(data.password)
 
     user.resume = {
       filename: resumeFile.originalname,

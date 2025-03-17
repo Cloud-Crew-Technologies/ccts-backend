@@ -6,6 +6,11 @@ import {
 import { BADREQUEST, SUCCESS } from "../constant/statuscode.js";
 import multer from "multer";
 import fileUpload from "express-fileupload";
+import {
+  NOTFOUND,
+  UNAUTHORIZED,
+  SERVERERROR,
+} from "../constant/statuscode.js";
 
 const storage = multer.memoryStorage();
 const upload = multer({
@@ -36,7 +41,7 @@ export const signuser = async (req, res) => {
     console.log(req.files);
 
     if (!req.files || Object.keys(req.files).length === 0) {
-      return res.status(400).send({
+      return res.status(BADREQUEST).send({
         message: "No files were uploaded.",
       });
     }
@@ -44,7 +49,7 @@ export const signuser = async (req, res) => {
     const resumeFile = req.files.resume;
 
     if (!resumeFile) {
-      return res.status(400).send({
+      return res.status(BADREQUEST).send({
         message: "No resume file uploaded.",
       });
     }
@@ -58,7 +63,7 @@ export const signuser = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    return res.status(400).send({
+    return res.status(BADREQUEST).send({
       message: "Failed to add user.",
       error: error.message,
     });
@@ -72,15 +77,17 @@ export const loginuser = async (req, res, next) => {
     const user = await loginUserService(email, password);
 
     if (!user) {
-      return next(new Error("Email or password is incorrect"));
+      return next(new AppError("Email or password is incorrect", UNAUTHORIZED));
     }
+    const token = user.generateJWT();
 
     return res.status(200).send({
       message: "User Logged In",
+      token: token,
     });
   } catch (error) {
     console.error(error);
-    return next(new Error("Something went wrong"));
+    return next(new AppError("Something went wrong", SERVERERROR));
   }
 };
 
@@ -95,7 +102,7 @@ export const getUserResume = async (req, res) => {
     res.send(resume.data);
   } catch (error) {
     console.error(error);
-    res.status(404).send({
+    res.status(NOTFOUND).send({
       message: "Resume not found",
       error: error.message,
     });
@@ -104,16 +111,16 @@ export const getUserResume = async (req, res) => {
 
 export const getUserbyID = async (req, res, next) => {
   const { uniqueid } = req.params;
-  if (uniqueid===null) {
+  if (uniqueid === null) {
     console.log("invalid request id is empty");
-    return next(new AppError(error.message, BADREQUEST));
+    return next(new AppError("Unique ID is required", BADREQUEST));
   }
   const user = await getUser(uniqueid);
   if (user) {
-    return res.status(200).send(user);
+    return res.status(SUCCESS).send(user);
   } else {
-    return res.status(404).send({
+    return res.status(NOTFOUND).send({
       message: "User not found",
-      });
+    });
   }
 };

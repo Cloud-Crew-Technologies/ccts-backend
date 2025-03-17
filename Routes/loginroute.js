@@ -6,6 +6,7 @@ import {
   getUserResume,
   getUserbyID
 } from "../controller/logincontroller.js";
+import { authMiddleware } from "../controller/auth.js";
 
 const router = e.Router();
 
@@ -15,6 +16,6 @@ router.route("/signup").post(signuser);
 
 router.route("/getresume").get(getUserResume);
 
-router.route("/:uniqueid").get(getUserbyID);
+router.route("/:uniqueid").get(authMiddleware,getUserbyID);
 
 export default router;
