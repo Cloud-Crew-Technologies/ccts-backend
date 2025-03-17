@@ -54,11 +54,11 @@ export const signUserServices = async (data, resumeFile) => {
     user.setPassword(data.password);
     user.hash = user.setPassword(data.password)
 
-    user.resume = {
-      filename: resumeFile.originalname,
-      contentType: resumeFile.mimetype,
-      size: resumeFile.size,
-    };
+    // user.resume = {
+    //   filename: resumeFile.originalname,
+    //   contentType: resumeFile.mimetype,
+    //   size: resumeFile.size,
+    // };
     await user.save();
 
     const userResponse = user.toObject();
