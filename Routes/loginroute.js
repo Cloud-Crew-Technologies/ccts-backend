@@ -2,7 +2,6 @@ import e from "express";
 import {
   loginuser,
   signuser,
-  resumeUpload,
   getUserResume,
   getUserbyID
 } from "../controller/logincontroller.js";
@@ -14,7 +13,7 @@ router.route("/login").post(loginuser);
 
 router.route("/signup").post(signuser);
 
-router.route("/getresume").get(getUserResume);
+// router.route("/getresume").get(getUserResume);
 
 router.route("/:uniqueid").get(authMiddleware,getUserbyID);
 

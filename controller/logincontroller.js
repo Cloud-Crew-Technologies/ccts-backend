@@ -12,28 +12,28 @@ import {
   SERVERERROR,
 } from "../constant/statuscode.js";
 
-const storage = multer.memoryStorage();
-const upload = multer({
-  storage: storage,
-  limits: {
-    fileSize: 3 * 1024 * 1024,
-  },
-  fileFilter: (req, file, cb) => {
-    if (file.mimetype === "application/pdf") {
-      cb(null, true);
-    } else {
-      cb(new Error("Only PDF files are allowed"), false);
-    }
-  },
-});
+// const storage = multer.memoryStorage();
+// const upload = multer({
+//   storage: storage,
+//   limits: {
+//     fileSize: 3 * 1024 * 1024,
+//   },
+//   fileFilter: (req, file, cb) => {
+//     if (file.mimetype === "application/pdf") {
+//       cb(null, true);
+//     } else {
+//       cb(new Error("Only PDF files are allowed"), false);
+//     }
+//   },
+// });
 
-export const resumeUpload = fileUpload({
-  limits: { fileSize: 3 * 1024 * 1024 },
-  abortOnLimit: true,
-  responseOnLimit: "File size limit reached",
-  useTempFiles: true,
-  tempFileDir: "/tmp/",
-});
+// export const resumeUpload = fileUpload({
+//   limits: { fileSize: 3 * 1024 * 1024 },
+//   abortOnLimit: true,
+//   responseOnLimit: "File size limit reached",
+//   useTempFiles: true,
+//   tempFileDir: "/tmp/",
+// });
 
 export const signuser = async (req, res) => {
   try {
@@ -46,13 +46,13 @@ export const signuser = async (req, res) => {
       });
     }
 
-    const resumeFile = req.files.resume;
+    // const resumeFile = req.files.resume;
 
-    if (!resumeFile) {
-      return res.status(BADREQUEST).send({
-        message: "No resume file uploaded.",
-      });
-    }
+    // if (!resumeFile) {
+    //   return res.status(BADREQUEST).send({
+    //     message: "No resume file uploaded.",
+    //   });
+    // }
 
     const userData = req.body;
     const user = await signUserServices(userData, resumeFile);
