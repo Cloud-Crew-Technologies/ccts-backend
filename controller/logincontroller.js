@@ -55,7 +55,7 @@ export const signuser = async (req, res) => {
     // }
 
     const userData = req.body;
-    const user = await signUserServices(userData, resumeFile);
+    const user = await signUserServices(userData);
 
     return res.status(201).send({
       message: "User added successfully.",
