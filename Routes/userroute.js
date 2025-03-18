@@ -2,7 +2,7 @@ import e from "express";
 import {
     userlogin,
     usersign,
-    getUserResume,
+    // getUserResume,
     getUserbyID,
     getAll
 } from "../controller/usercontroller.js";
