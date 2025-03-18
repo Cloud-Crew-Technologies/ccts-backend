@@ -12,6 +12,8 @@ export const UserloginService = async (email, password) => {
       return null;
     }
 
+    console.log("User object after findOne:", user); // <--- ADD THIS LOG
+
     console.log("User found:", user);
     console.log("Provided password:", password);
     if (!user.validPassword(password)) {
@@ -46,7 +48,7 @@ export const UsersignServices = async (data) => {
       uniqueid: data.uniqueid,
     };
     const user = new Users(userData);
-    user.setPassword(data.password); // <--- IMPORTANT: Call setPassword *before* saving
+    user.setPassword(data.password);
     await user.save();
 
     const userResponse = user.toObject();
