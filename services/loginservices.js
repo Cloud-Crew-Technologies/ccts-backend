@@ -52,7 +52,7 @@ export const signUserServices = async (data, resumeFile) => {
     };
     const user = new Login(userData);
     user.setPassword(data.password);
-    user.hash = user.setPassword(data.password)
+    user.hash = user.setPassword(data.password);
 
     // user.resume = {
     //   filename: resumeFile.originalname,
@@ -93,6 +93,15 @@ export const getResumeForUser = async (userId) => {
 export const getUser = async (uniqueid) => {
   try {
     const result = await Login.findOne({ uniqueid: uniqueid });
+    return result;
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
+
+export const getAllUsers = async () => {
+  try {
+    const result = await Login.find();
     return result;
   } catch (error) {
     console.error("Error:", error);

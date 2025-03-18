@@ -2,15 +2,12 @@ import {
   loginUserService,
   signUserServices,
   getUser,
+  getAllUsers,
 } from "../services/loginservices.js";
 import { BADREQUEST, SUCCESS } from "../constant/statuscode.js";
 import multer from "multer";
 import fileUpload from "express-fileupload";
-import {
-  NOTFOUND,
-  UNAUTHORIZED,
-  SERVERERROR,
-} from "../constant/statuscode.js";
+import { NOTFOUND, UNAUTHORIZED, SERVERERROR } from "../constant/statuscode.js";
 
 // const storage = multer.memoryStorage();
 // const upload = multer({
@@ -122,5 +119,15 @@ export const getUserbyID = async (req, res, next) => {
     return res.status(NOTFOUND).send({
       message: "User not found",
     });
+  }
+};
+
+export const getAll = async (req, res, next) => {
+  try {
+    const users = await getAllUsers();
+    return res.status(SUCCESS).send(users);
+  } catch (error) {
+    console.error(error);
+    return next("Something went wrong", SERVERERROR);
   }
 };
