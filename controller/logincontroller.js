@@ -77,7 +77,7 @@ export const loginuser = async (req, res, next) => {
     const user = await loginUserService(email, password);
 
     if (!user) {
-      return next(new AppError("Email or password is incorrect", UNAUTHORIZED));
+      return next("Email or password is incorrect", UNAUTHORIZED);
     }
     const token = user.generateJWT();
 
@@ -87,7 +87,7 @@ export const loginuser = async (req, res, next) => {
     });
   } catch (error) {
     console.error(error);
-    return next(new AppError("Something went wrong", SERVERERROR));
+    return next("Something went wrong", SERVERERROR);
   }
 };
 
@@ -113,7 +113,7 @@ export const getUserbyID = async (req, res, next) => {
   const { uniqueid } = req.params;
   if (uniqueid === null) {
     console.log("invalid request id is empty");
-    return next(new AppError("Unique ID is required", BADREQUEST));
+    return next("Unique ID is required", BADREQUEST);
   }
   const user = await getUser(uniqueid);
   if (user) {
