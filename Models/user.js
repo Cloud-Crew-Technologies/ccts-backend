@@ -19,6 +19,8 @@ const UsersSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  hash: String,
+  salt: String,
   domain: {
     type: String,
     required: true,
