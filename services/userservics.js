@@ -3,16 +3,14 @@ import Users from "../Models/user.js";
 export const UserloginService = async (email, password) => {
   try {
     console.log("Attempting login with email:", email);
-    const user = await Users.findOne({
-      email: email,
-    });
+    const user = await Users.findOne({ email: email });
 
     if (!user) {
       console.log("User not found for email:", email);
       return null;
     }
 
-    console.log("User object after findOne:", user); // <--- ADD THIS LOG
+    console.log("User object after findOne:", user); // Log the entire user object
 
     console.log("User found:", user);
     console.log("Provided password:", password);
@@ -30,26 +28,54 @@ export const UserloginService = async (email, password) => {
 
 export const UsersignServices = async (data) => {
   try {
-    const userData = {
-      name: data.name,
-      email: data.email,
-      mobileno: data.mobileno,
-      domain: data.domain,
-      address: data.address,
-      pancard: data.pancard,
-      dob: data.dob,
-      skills: data.skills,
-      college: data.college,
-      degree: data.degree,
-      yearofstudying: data.yearofstudying,
-      yearofpassing: data.yearofpassing,
-      github: data.github,
-      linkedin: data.linkedin,
-      uniqueid: data.uniqueid,
-    };
-    const user = new Users(userData);
-    user.setPassword(data.password);
+    console.log("Data received in UsersignServices:", data); //<---LOG
+
+    const {
+      name,
+      email,
+      mobileno,
+      domain,
+      address,
+      pancard,
+      dob,
+      skills,
+      college,
+      degree,
+      yearofstudying,
+      yearofpassing,
+      github,
+      linkedin,
+      uniqueid,
+      password,
+    } = data;
+
+    const user = new Users({
+      name,
+      email,
+      mobileno,
+      domain,
+      address,
+      pancard,
+      dob,
+      skills,
+      college,
+      degree,
+      yearofstudying,
+      yearofpassing,
+      github,
+      linkedin,
+      uniqueid,
+    });
+
+    console.log("User object before setPassword:", user); // LOG
+
+    user.setPassword(password);
+
+    console.log("User object after setPassword:", user); // LOG
+
     await user.save();
+
+    console.log("User saved successfully!"); // LOG
 
     const userResponse = user.toObject();
     delete userResponse.salt;

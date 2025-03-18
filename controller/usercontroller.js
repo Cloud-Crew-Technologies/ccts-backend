@@ -5,12 +5,12 @@ import {
   UsersgetAll,
 } from "../services/userservics.js";
 import { BADREQUEST, SUCCESS } from "../constant/statuscode.js";
-import multer from "multer";
-import fileUpload from "express-fileupload";
 import { NOTFOUND, UNAUTHORIZED, SERVERERROR } from "../constant/statuscode.js";
 
 export const usersign = async (req, res) => {
   try {
+    console.log("Signup request body:", req.body);
+
     const userData = req.body;
     const user = await UsersignServices(userData);
 
@@ -19,7 +19,7 @@ export const usersign = async (req, res) => {
       user: user,
     });
   } catch (error) {
-    console.error(error);
+    console.error("Error during signup:", error);
     return res.status(BADREQUEST).send({
       message: "Failed to add user.",
       error: error.message,
@@ -31,19 +31,23 @@ export const userlogin = async (req, res, next) => {
   const { email, password } = req.body;
 
   try {
+    console.log("Login attempt - Email:", email);
     const user = await UserloginService(email, password);
 
     if (!user) {
+      console.log("Login failed - Invalid credentials");
       return next("Email or password is incorrect", UNAUTHORIZED);
     }
     const token = user.generateJWT();
+
+    console.log("Login successful - User:", user.email);
 
     return res.status(200).send({
       message: "User Logged In",
       token: token,
     });
   } catch (error) {
-    console.error(error);
+    console.error("Error during login:", error);
     return next("Something went wrong", SERVERERROR);
   }
 };

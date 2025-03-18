@@ -75,18 +75,22 @@ const UsersSchema = new mongoose.Schema({
 });
 
 UsersSchema.methods.setPassword = function (password) {
-  console.log("setPassword called with password:", password); // ADDED
+  console.log("setPassword called with password:", password);
   this.salt = crypto.randomBytes(16).toString("hex");
   this.hash = crypto
     .pbkdf2Sync(password, this.salt, 1000, 64, `sha512`)
     .toString(`hex`);
-  console.log("Generated salt:", this.salt); // ADDED
-  console.log("Generated hash:", this.hash); // ADDED
+  console.log("Generated salt:", this.salt);
+  console.log("Generated hash:", this.hash);
 };
 
 UsersSchema.methods.validPassword = function (password) {
   console.log("validPassword called with password:", password);
   console.log("Salt:", this.salt); // Log salt value
+  if (!this.salt) {
+    console.error("ERROR: Salt is undefined for user:", this.email);
+    return false; // Important: Handle missing salt
+  }
   const hash = crypto
     .pbkdf2Sync(password, this.salt, 1000, 64, `sha512`)
     .toString(`hex`);
