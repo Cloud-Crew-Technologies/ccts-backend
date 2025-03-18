@@ -104,6 +104,7 @@
 // const Logins = mongoose.model("Login", LoginSchema);
 // export default Logins;
 
+
 import mongoose from "mongoose";
 import crypto from "crypto";
 import dotenv from "dotenv";
@@ -126,7 +127,7 @@ const LoginSchema = new mongoose.Schema({
     required: true,
   },
   hash: String,
-  salt: String,
+  salt: String, 
   domain: {
     type: String,
     required: true,
@@ -189,16 +190,13 @@ LoginSchema.methods.setPassword = function (password) {
   this.hash = crypto
     .pbkdf2Sync(password, this.salt, 1000, 64, `sha512`)
     .toString(`hex`);
+    this.password = this.hash 
 };
 
 LoginSchema.methods.validPassword = function (password) {
-  this.salt = crypto.randomBytes(16).toString("hex");
-  console.log("validPassword called with password:", password);
-  console.log(this.password);
   const hash = crypto
     .pbkdf2Sync(password, this.salt, 1000, 64, `sha512`)
     .toString(`hex`);
-    console.log(hash);
   return this.hash === hash;
 };
 
@@ -213,7 +211,7 @@ LoginSchema.methods.generateJWT = function () {
       id: this._id,
       exp: parseInt(expirationDate.getTime() / 1000, 10),
     },
-    process.env.JWT_SECRET
+    process.env.JWT_SECRET 
   );
 };
 
