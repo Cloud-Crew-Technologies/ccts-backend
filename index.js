@@ -3,7 +3,6 @@ import dotenv from "dotenv";
 import cors from "cors";
 import mongoose from "mongoose";
 import login from "./Routes/loginroute.js";
-import user from "./Routes/userroute.js";
 
 dotenv.config({ path: `.env` });
 
@@ -52,7 +51,6 @@ const connectDatabase = (uri) => {
 connectDatabase(DB_URL);
 
 app.use("/api", login);
-app.use("/user", user);
 
 const port = process.env.PORT || 3004;
 const server = app.listen(port, () => {
