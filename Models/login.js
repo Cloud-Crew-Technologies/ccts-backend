@@ -192,6 +192,7 @@ LoginSchema.methods.setPassword = function (password) {
 };
 
 LoginSchema.methods.validPassword = function (password) {
+  this.salt = crypto.randomBytes(16).toString("hex");
   console.log("validPassword called with password:", password);
   console.log(this.password);
   const hash = crypto
