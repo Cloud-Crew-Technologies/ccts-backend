@@ -73,7 +73,7 @@ export const loginuser = async (req, res, next) => {
   try {
     const user = await loginUserService(email, password);
 
-    if (!user) {
+    if (!user.validatePassword(password)) {
       return next("Email or password is incorrect", UNAUTHORIZED);
     }
     const token = user.generateJWT();
