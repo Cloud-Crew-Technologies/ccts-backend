@@ -15,6 +15,10 @@ const UsersSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  password: {
+    type: String,
+    required: true,
+  },
   hash: String, // Store the pre-hashed password here
   salt: String, //  Store the salt here.
   domain: {
