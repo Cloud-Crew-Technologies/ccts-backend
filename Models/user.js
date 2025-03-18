@@ -75,10 +75,13 @@ const UsersSchema = new mongoose.Schema({
 });
 
 UsersSchema.methods.setPassword = function (password) {
+  console.log("setPassword called with password:", password); // ADDED
   this.salt = crypto.randomBytes(16).toString("hex");
   this.hash = crypto
     .pbkdf2Sync(password, this.salt, 1000, 64, `sha512`)
     .toString(`hex`);
+  console.log("Generated salt:", this.salt); // ADDED
+  console.log("Generated hash:", this.hash); // ADDED
 };
 
 UsersSchema.methods.validPassword = function (password) {
