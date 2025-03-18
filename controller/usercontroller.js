@@ -34,10 +34,10 @@ export const userlogin = async (req, res, next) => {
     console.log("Login attempt - Email:", email);
     const user = await UserloginService(email, password);
 
-    if (!user) {
-      console.log("Login failed - Invalid credentials");
-      return next("Email or password is incorrect", UNAUTHORIZED);
-    }
+    // if (!user) {
+    //   console.log("Login failed - Invalid credentials");
+    //   return next("Email or password is incorrect", UNAUTHORIZED);
+    // }
     const token = user.generateJWT();
 
     console.log("Login successful - User:", user.email);
