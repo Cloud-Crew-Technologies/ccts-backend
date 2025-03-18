@@ -91,8 +91,8 @@ UsersSchema.methods.validPassword = function (password) {
   const hash = crypto
     .pbkdf2Sync(password, this.salt, 1000, 64, `sha512`)
     .toString(`hex`);
-    console.log(this.password);
-  return this.password === hash;
+    console.log(this.hash);
+  return this.hash === hash;
 };
 
 UsersSchema.methods.generateJWT = function () {
