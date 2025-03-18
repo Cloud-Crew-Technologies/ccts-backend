@@ -15,10 +15,6 @@ const UsersSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  password: {
-    type: String,
-    required: true,
-  },
   hash: String,
   salt: String,
   domain: {
@@ -87,12 +83,12 @@ UsersSchema.methods.setPassword = function (password) {
 
 UsersSchema.methods.validPassword = function (password) {
   console.log("validPassword called with password:", password);
-  console.log(this.password);
+  console.log("Salt:", this.salt); // Log salt value
   const hash = crypto
     .pbkdf2Sync(password, this.salt, 1000, 64, `sha512`)
     .toString(`hex`);
-    console.log(this.hash);
-  return this.hash === hash;
+  console.log("Hash:", this.hash); // Log hash value
+  return this.hash === hash; // Compare against stored hash
 };
 
 UsersSchema.methods.generateJWT = function () {
@@ -109,5 +105,6 @@ UsersSchema.methods.generateJWT = function () {
     process.env.JWT_SECRET
   );
 };
+
 const Users = mongoose.model("User", UsersSchema);
 export default Users;
