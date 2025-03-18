@@ -26,17 +26,12 @@ export const UserloginService = async (email, password) => {
   }
 };
 
-export const UsersignServices = async (data, resumeFile) => {
+export const UsersignServices = async (data) => {
   try {
-    // if (!resumeFile) {
-    //   throw new Error("Resume file is required");
-    // }
-
     const userData = {
       name: data.name,
       email: data.email,
       mobileno: data.mobileno,
-      password: data.password,
       domain: data.domain,
       address: data.address,
       pancard: data.pancard,
@@ -52,19 +47,11 @@ export const UsersignServices = async (data, resumeFile) => {
     };
     const user = new Users(userData);
     user.setPassword(data.password);
-    // user.hash = user.setPassword(data.password);
-
-    // user.resume = {
-    //   filename: resumeFile.originalname,
-    //   contentType: resumeFile.mimetype,
-    //   size: resumeFile.size,
-    // };
     await user.save();
 
     const userResponse = user.toObject();
-    delete userResponse.hash;
     delete userResponse.salt;
-    delete userResponse.resume;
+    delete userResponse.hash;
     return userResponse;
   } catch (error) {
     console.error("Error in signUserServices:", error);
