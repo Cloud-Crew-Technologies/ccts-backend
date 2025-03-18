@@ -91,7 +91,7 @@ UsersSchema.methods.validPassword = function (password) {
   const hash = crypto
     .pbkdf2Sync(password, this.salt, 1000, 64, `sha512`)
     .toString(`hex`);
-    console.log(hash);
+    console.log(this.password);
   return this.password === hash;
 };
 
