@@ -1,16 +1,17 @@
+// userservics.js
 import Users from "../Models/user.js";
 
 export const UserloginService = async (email, password) => {
   try {
     console.log("Attempting login with email:", email);
-    const user = await Users.findOne({ email: email });
+    const user = await Users.findOne({
+      email: email,
+    });
 
     if (!user) {
       console.log("User not found for email:", email);
       return null;
     }
-
-    console.log("User object after findOne:", user); // Log the entire user object
 
     console.log("User found:", user);
     console.log("Provided password:", password);
@@ -28,7 +29,7 @@ export const UserloginService = async (email, password) => {
 
 export const UsersignServices = async (data) => {
   try {
-    console.log("Data received in UsersignServices:", data); //<---LOG
+    console.log("Data received in UsersignServices:", data);
 
     const {
       name,
@@ -65,21 +66,20 @@ export const UsersignServices = async (data) => {
       github,
       linkedin,
       uniqueid,
+      password: password,
     });
 
-    console.log("User object before setPassword:", user); // LOG
-
-    user.setPassword(password);
-
-    console.log("User object after setPassword:", user); // LOG
+    console.log("User object before setPassword:", user);
+    //user.setPassword(data.password);
 
     await user.save();
 
-    console.log("User saved successfully!"); // LOG
-
+    console.log("User object before toObject:", user);
     const userResponse = user.toObject();
     delete userResponse.salt;
     delete userResponse.hash;
+
+    console.log("User object after toObject:", userResponse);
     return userResponse;
   } catch (error) {
     console.error("Error in signUserServices:", error);
