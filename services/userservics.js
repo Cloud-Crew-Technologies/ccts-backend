@@ -67,6 +67,8 @@ export const UsersignServices = async (data) => {
       linkedin,
       uniqueid,
       password: password,
+      hash,
+      salt
     });
 
     console.log("User object before setPassword:", user);
