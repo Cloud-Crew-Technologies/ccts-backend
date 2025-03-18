@@ -192,14 +192,13 @@ LoginSchema.methods.setPassword = function (password) {
 };
 
 LoginSchema.methods.validPassword = function (password) {
-  this.salt = crypto.randomBytes(16).toString("hex");
   console.log("validPassword called with password:", password);
   console.log(this.password);
   const hash = crypto
     .pbkdf2Sync(password, this.salt, 1000, 64, `sha512`)
     .toString(`hex`);
     console.log(hash);
-  return this.hash === hash;
+  return this.password === hash;
 };
 
 LoginSchema.methods.generateJWT = function () {
