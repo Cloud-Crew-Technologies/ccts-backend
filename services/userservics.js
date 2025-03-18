@@ -51,8 +51,8 @@ export const UsersignServices = async (data, resumeFile) => {
       uniqueid: data.uniqueid,
     };
     const user = new Users(userData);
-    user.setPassword(data.password);
-    user.hash = user.setPassword(data.password);
+    // user.setPassword(data.password);
+    // user.hash = user.setPassword(data.password);
 
     // user.resume = {
     //   filename: resumeFile.originalname,

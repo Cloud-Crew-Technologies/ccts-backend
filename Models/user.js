@@ -19,7 +19,6 @@ const UsersSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  hash: String,
   salt: String,
   domain: {
     type: String,
@@ -78,12 +77,12 @@ const UsersSchema = new mongoose.Schema({
   },
 });
 
-UsersSchema.methods.setPassword = function (password) {
-  this.salt = crypto.randomBytes(16).toString("hex");
-  this.hash = crypto
-    .pbkdf2Sync(password, this.salt, 1000, 64, `sha512`)
-    .toString(`hex`);
-};
+// UsersSchema.methods.setPassword = function (password) {
+//   this.salt = crypto.randomBytes(16).toString("hex");
+//   this.hash = crypto
+//     .pbkdf2Sync(password, this.salt, 1000, 64, `sha512`)
+//     .toString(`hex`);
+// };
 
 UsersSchema.methods.validPassword = function (password) {
   console.log("validPassword called with password:", password);
