@@ -193,6 +193,7 @@ LoginSchema.methods.setPassword = function (password) {
 };
 
 LoginSchema.methods.validPassword = function (password) {
+  console.log("validPassword called with password:", password);
   const hash = crypto
     .pbkdf2Sync(password, this.salt, 1000, 64, `sha512`)
     .toString(`hex`);
