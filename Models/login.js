@@ -190,7 +190,6 @@ LoginSchema.methods.setPassword = function (password) {
   this.hash = crypto
     .pbkdf2Sync(password, this.salt, 1000, 64, `sha512`)
     .toString(`hex`);
-    this.password = this.hash 
 };
 
 LoginSchema.methods.validPassword = function (password) {
