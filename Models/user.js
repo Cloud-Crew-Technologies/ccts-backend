@@ -15,8 +15,8 @@ const UsersSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  hash: String,
-  salt: String,
+  hash: String, // Store the pre-hashed password here
+  salt: String, //  Store the salt here.
   domain: {
     type: String,
     required: true,
@@ -65,7 +65,6 @@ const UsersSchema = new mongoose.Schema({
   linkedin: {
     type: String,
     required: true,
-    unique: true,
   },
   uniqueid: {
     type: Number,
@@ -74,28 +73,19 @@ const UsersSchema = new mongoose.Schema({
   },
 });
 
+// You *don't* hash here, since the password is already hashed
 UsersSchema.methods.setPassword = function (password) {
-  console.log("setPassword called with password:", password);
-  this.salt = crypto.randomBytes(16).toString("hex");
-  this.hash = crypto
-    .pbkdf2Sync(password, this.salt, 1000, 64, `sha512`)
-    .toString(`hex`);
-  console.log("Generated salt:", this.salt);
-  console.log("Generated hash:", this.hash);
+  console.log("setPassword called with password (but not hashing):", password);
+  this.salt = password; // Just store the hashed value
+  console.log("Storing password");
 };
 
 UsersSchema.methods.validPassword = function (password) {
   console.log("validPassword called with password:", password);
-  console.log("Salt:", this.salt); // Log salt value
-  if (!this.salt) {
-    console.error("ERROR: Salt is undefined for user:", this.email);
-    return false; // Important: Handle missing salt
-  }
-  const hash = crypto
-    .pbkdf2Sync(password, this.salt, 1000, 64, `sha512`)
-    .toString(`hex`);
-  console.log("Hash:", this.hash); // Log hash value
-  return this.hash === hash; // Compare against stored hash
+  //console.log("Salt:", this.salt); // No salt required
+
+  console.log("Comparing to stored hash:", this.hash);
+  return this.hash === password; // DIRECT COMPARISON against stored hash
 };
 
 UsersSchema.methods.generateJWT = function () {
