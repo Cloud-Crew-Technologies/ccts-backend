@@ -48,6 +48,8 @@ export const UsersignServices = async (data) => {
       linkedin,
       uniqueid,
       password,
+      hash,
+      salt,
     } = data;
 
     const user = new Users({
@@ -68,7 +70,7 @@ export const UsersignServices = async (data) => {
       uniqueid,
       password: password,
       hash,
-      salt
+      salt,
     });
 
     console.log("User object before setPassword:", user);
