@@ -16,11 +16,12 @@ const UsersSchema = new mongoose.Schema({
     unique: true,
   },
   password: {
+    // the hashed password is now here
     type: String,
     required: true,
   },
-  hash: String, // Store the pre-hashed password here
-  salt: String, //  Store the salt here.
+  // hash: String, // Don't need a separate hash field anymore
+  salt: String,
   domain: {
     type: String,
     required: true,
@@ -77,19 +78,31 @@ const UsersSchema = new mongoose.Schema({
   },
 });
 
-// You *don't* hash here, since the password is already hashed
 UsersSchema.methods.setPassword = function (password) {
   console.log("setPassword called with password (but not hashing):", password);
-  this.salt = password; // Just store the hashed value
-  console.log("Storing password");
+  // Use crypto.randomBytes(16).toString("hex"); to set a new salt
+  // And pbkdf2Sync(password, this.salt, 1000, 64, `sha512`) to hash
+
+  // The password from the external source should already be a hash, so you must skip it.
+  // Otherwise when the password gets hashed twice, then it must fail
+  this.password = password; // Store the pre-hashed password
+  this.salt = crypto.randomBytes(16).toString("hex");
+
+  console.log("Storing pre-hashed password");
 };
 
 UsersSchema.methods.validPassword = function (password) {
   console.log("validPassword called with password:", password);
-  //console.log("Salt:", this.salt); // No salt required
 
-  console.log("Comparing to stored hash:", this.hash);
-  return this.hash === password; // DIRECT COMPARISON against stored hash
+  console.log("Comparing against stored password:", this.password);
+
+  // Make sure to validate this by running new password along with your salt to check.
+  const hash = crypto
+    .pbkdf2Sync(password, this.salt, 1000, 64, `sha512`)
+    .toString(`hex`);
+    console.log("password after entering",hash);
+
+  return this.password === hash; // DIRECT COMPARISON against stored password
 };
 
 UsersSchema.methods.generateJWT = function () {
