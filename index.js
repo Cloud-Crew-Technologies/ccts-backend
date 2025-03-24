@@ -6,6 +6,7 @@ import login from "./Routes/loginroute.js";
 import user from "./Routes/userroute.js";
 import Rejected from "./Routes/Rejectedroute.js";
 import task from "./Routes/taskroute.js";
+import insight from "./Routes/insightroutes.js";
 
 dotenv.config({ path: `.env` });
 
@@ -57,6 +58,7 @@ app.use("/api", login);
 app.use("/user", user);
 app.use("/rejected", Rejected);
 app.use("/task", task);
+app.use("/insight", insight);
 
 const port = process.env.PORT || 3004;
 const server = app.listen(port, () => {
