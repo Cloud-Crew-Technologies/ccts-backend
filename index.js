@@ -4,6 +4,8 @@ import cors from "cors";
 import mongoose from "mongoose";
 import login from "./Routes/loginroute.js";
 import user from "./Routes/userroute.js";
+import Rejected from "./Routes/Rejectedroute.js";
+import task from "./Routes/taskroute.js";
 
 dotenv.config({ path: `.env` });
 
@@ -53,6 +55,8 @@ connectDatabase(DB_URL);
 
 app.use("/api", login);
 app.use("/user", user);
+app.use("/rejected", Rejected);
+app.use("/task", task);
 
 const port = process.env.PORT || 3004;
 const server = app.listen(port, () => {

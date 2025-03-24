@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 
 dotenv.config();
 
-const UsersSchema = new mongoose.Schema({
+const RejectedSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -78,7 +78,7 @@ const UsersSchema = new mongoose.Schema({
   },
 });
 
-UsersSchema.methods.setPassword = function (password) {
+RejectedSchema.methods.setPassword = function (password) {
   // Use crypto.randomBytes(16).toString("hex")
   // pbkdf2Sync(password, this.salt, 1000, 64, `sha512`) 
   this.password = password;
@@ -87,7 +87,7 @@ UsersSchema.methods.setPassword = function (password) {
   console.log("Storing pre-hashed password");
 };
 
-UsersSchema.methods.validPassword = function (password) {
+RejectedSchema.methods.validPassword = function (password) {
   console.log("validPassword called with password:", password);
 
   console.log("Comparing against stored password:", this.password);
@@ -99,7 +99,7 @@ UsersSchema.methods.validPassword = function (password) {
   return this.password === hash;
 };
 
-UsersSchema.methods.generateJWT = function () {
+RejectedSchema.methods.generateJWT = function () {
   const today = new Date();
   const expirationDate = new Date(today);
   expirationDate.setDate(today.getDate() + 60);
@@ -114,5 +114,5 @@ UsersSchema.methods.generateJWT = function () {
   );
 };
 
-const Users = mongoose.model("User", UsersSchema);
-export default Users;
+const Rejected = mongoose.model("Rejected", RejectedSchema);
+export default Rejected;

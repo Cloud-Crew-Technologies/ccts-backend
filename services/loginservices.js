@@ -107,3 +107,12 @@ export const getAllUsers = async () => {
     console.error("Error:", error);
   }
 };
+
+export const DeleteUser = async (uniqueid) => {
+  try {
+    const result = await Login.deleteOne({ uniqueid: uniqueid });
+    return result;
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};

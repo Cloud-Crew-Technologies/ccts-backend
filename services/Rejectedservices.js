@@ -1,10 +1,10 @@
-// userservics.js
-import Users from "../Models/user.js";
 
-export const UserloginService = async (email, password) => {
+import Rejected from "../Models/rejected.js";
+
+export const RejectedloginService = async (email, password) => {
   try {
     console.log("Attempting login with email:", email);
-    const user = await Users.findOne({
+    const user = await Rejected.findOne({
       email: email,
     });
 
@@ -26,7 +26,7 @@ export const UserloginService = async (email, password) => {
   }
 };
 
-export const UsersignServices = async (data) => {
+export const RejectedsignServices = async (data) => {
   try {
 
     const {
@@ -50,7 +50,7 @@ export const UsersignServices = async (data) => {
       salt,
     } = data;
 
-    const user = new Users({
+    const user = new Rejected({
       name,
       email,
       mobileno,
@@ -87,7 +87,7 @@ export const UsersignServices = async (data) => {
 
 export const getResumeForUser = async (userId) => {
   try {
-    const user = await Users.findById(userId);
+    const user = await Rejected.findById(userId);
 
     if (!user || !user.resume) {
       throw new Error("Resume not found");
@@ -103,18 +103,18 @@ export const getResumeForUser = async (userId) => {
   }
 };
 
-export const Userget = async (uniqueid) => {
+export const Rejectedget = async (uniqueid) => {
   try {
-    const result = await Users.findOne({ uniqueid: uniqueid });
+    const result = await Rejected.findOne({ uniqueid: uniqueid });
     return result;
   } catch (error) {
     console.error("Error:", error);
   }
 };
 
-export const UsersgetAll = async () => {
+export const RejectedgetAll = async () => {
   try {
-    const result = await Users.find();
+    const result = await Rejected.find();
     return result;
   } catch (error) {
     console.error("Error:", error);
