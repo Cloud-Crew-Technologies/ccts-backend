@@ -28,7 +28,7 @@ export const usersign = async (req, res) => {
 };
 
 export const userlogin = async (req, res, next) => {
-  const { email, password } = req.body;
+  const { email, password,uniqueid } = req.body;
 
   try {
     console.log("Login attempt - Email:", email);
@@ -45,6 +45,8 @@ export const userlogin = async (req, res, next) => {
     return res.status(200).send({
       message: "User Logged In",
       token: token,
+      uniqueid: user.uniqueid,
+
     });
   } catch (error) {
     console.error("Error during login:", error);
