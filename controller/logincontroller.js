@@ -135,6 +135,7 @@ export const getAll = async (req, res, next) => {
 
 export const Userdelete = async (req, res, next) => {
   const { uniqueid } = req.params;
+  console.log(uniqueid);
   if (uniqueid === null) {
     console.log("invalid request id is empty");
     return next("Unique ID is required", BADREQUEST);

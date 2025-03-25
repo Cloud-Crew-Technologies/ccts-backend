@@ -13,7 +13,7 @@ export const InsightcreateService = async (data) => {
 
 export const InsightgetbyID = async (uniqueid) => {
   try {
-    const insight = await Insight.findById(uniqueid);
+    const insight = await Insight.findOne({ uniqueid: uniqueid });
     return insight;
   } catch (error) {
     console.error("Error in InsightgetbyID:", error);

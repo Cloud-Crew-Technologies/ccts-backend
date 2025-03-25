@@ -28,7 +28,6 @@ export const UserloginService = async (email, password) => {
 
 export const UsersignServices = async (data) => {
   try {
-
     const {
       name,
       email,
@@ -118,5 +117,22 @@ export const UsersgetAll = async () => {
     return result;
   } catch (error) {
     console.error("Error:", error);
+  }
+};
+
+export const PutUser = async (uniqueid, data) => {
+  try {
+    const updatedUser = await Users.findOneAndUpdate(
+      { uniqueid: uniqueid },
+      data,
+      { new: true }
+    );
+    if (!updatedUser) {
+      throw new Error("User not found");
+    }
+    return updatedUser;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
   }
 };

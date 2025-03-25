@@ -5,6 +5,7 @@ import {
 
 export const Insightcreate = async (req, res) => {
   try {
+    console.log(req.body);
     const insight = await InsightcreateService(req.body);
     res.status(201).json(insight);
   } catch (error) {

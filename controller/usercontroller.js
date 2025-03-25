@@ -3,6 +3,7 @@ import {
   UsersignServices,
   Userget,
   UsersgetAll,
+  PutUser,
 } from "../services/userservics.js";
 import { BADREQUEST, SUCCESS } from "../constant/statuscode.js";
 import { NOTFOUND, UNAUTHORIZED, SERVERERROR } from "../constant/statuscode.js";
@@ -28,7 +29,7 @@ export const usersign = async (req, res) => {
 };
 
 export const userlogin = async (req, res, next) => {
-  const { email, password,uniqueid } = req.body;
+  const { email, password, uniqueid } = req.body;
 
   try {
     console.log("Login attempt - Email:", email);
@@ -46,7 +47,6 @@ export const userlogin = async (req, res, next) => {
       message: "User Logged In",
       token: token,
       uniqueid: user.uniqueid,
-
     });
   } catch (error) {
     console.error("Error during login:", error);
@@ -56,9 +56,11 @@ export const userlogin = async (req, res, next) => {
 
 export const getUserbyID = async (req, res, next) => {
   const { uniqueid } = req.params;
-  if (uniqueid === null) {
-    console.log("invalid request id is empty");
-    return next("Unique ID is required", BADREQUEST);
+  if (!uniqueid) {
+    console.log("Invalid request: unique ID is empty or undefined");
+    return res.status(BADREQUEST).send({
+      message: "Unique ID is required",
+    });
   }
   const user = await Userget(uniqueid);
   if (user) {
@@ -77,5 +79,27 @@ export const getAll = async (req, res, next) => {
   } catch (error) {
     console.error(error);
     return next("Something went wrong", SERVERERROR);
+  }
+};
+
+export const updateUser = async (req, res, next) => {
+  const { uniqueid } = req.params;
+  const data = req.body;
+
+  if (uniqueid === null) {
+    console.log("invalid request id is empty");
+    return next("Unique ID is required", BADREQUEST);
+  }
+  const user = await PutUser(uniqueid, data);
+
+  if (user) {
+    return res.status(SUCCESS).send({
+      message: "User updated successfully",
+      user: user,
+    });
+  } else {
+    return res.status(NOTFOUND).send({
+      message: "User not found",
+    });
   }
 };

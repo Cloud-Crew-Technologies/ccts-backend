@@ -34,10 +34,6 @@ const TaskSchema = new mongoose.Schema({
     type: Number,
     unique: true,
     required: true,
-    validate: {
-      validator: Number.isInteger,
-      message: '{VALUE} is not an integer value'
-    },
   },
 });
 const Task = mongoose.model("Task", TaskSchema);

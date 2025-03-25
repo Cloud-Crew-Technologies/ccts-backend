@@ -120,3 +120,12 @@ export const RejectedgetAll = async () => {
     console.error("Error:", error);
   }
 };
+
+export const DeleteUser = async (uniqueid) => {
+  try {
+    const result = await Rejected.deleteOne({ uniqueid: uniqueid });
+    return result;
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};

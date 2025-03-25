@@ -3,7 +3,8 @@ import {
     userlogin,
     usersign,
     getUserbyID,
-    getAll
+    getAll,
+    updateUser,
 } from "../controller/usercontroller.js";
 import { authMiddleware } from "../controller/auth.js";
 
@@ -14,6 +15,8 @@ router.route("/login").post(userlogin);
 router.route("/loadup").post(usersign);
 router.route("/all").get(getAll);
 // router.route("/getresume").get(getUserResume);
+
+router.route("/update/:uniqueid").put(updateUser);
 
 router.route("/:uniqueid").get(getUserbyID);
 

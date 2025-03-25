@@ -3,7 +3,8 @@ import {
     getRejectedAll,
     RejectedUserbyID,
     Rejectedsign,
-    Rejectedlogin
+    Rejectedlogin,
+    Userdelete
 } from "../controller/Rejectedcontroller.js";
 import { authMiddleware } from "../controller/auth.js";
 
@@ -13,6 +14,7 @@ router.route("/login").post(Rejectedlogin);
 
 router.route("/loadup").post(Rejectedsign);
 router.route("/all").get(getRejectedAll);
+router.route("/delete/:uniqueid").delete(Userdelete);
 // router.route("/getresume").get(getUserResume);
 
 router.route("/:uniqueid").get(RejectedUserbyID);

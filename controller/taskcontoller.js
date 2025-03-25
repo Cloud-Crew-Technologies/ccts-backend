@@ -24,12 +24,17 @@ export const Taskcreate = async (req, res) => {
 
 export const getbyIDTask = async (req, res, next) => {
   try {
-    const taskId = req.params.taskId;
-    const task = await TaskgetbyID(taskId);
+    const { uniqueid } = req.params;
+    console.log(uniqueid);
+
+    const task = await TaskgetbyID(uniqueid);
     if (task) {
       return res.status(SUCCESS).send(task);
+    } else {
+      return res.status(NOTFOUND).send({
+        message: "Task not found.",
+      });
     }
-    return next("Task not found", NOTFOUND);
   } catch (error) {
     console.error("Error during task retrieval:", error);
     return next("Something went wrong", SERVERERROR);

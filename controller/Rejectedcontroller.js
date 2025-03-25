@@ -3,6 +3,7 @@ import {
   RejectedgetAll,
   Rejectedget,
   RejectedsignServices,
+  DeleteUser
 } from "../services/Rejectedservices.js";
 import { BADREQUEST, SUCCESS } from "../constant/statuscode.js";
 import { NOTFOUND, UNAUTHORIZED, SERVERERROR } from "../constant/statuscode.js";
@@ -75,5 +76,24 @@ export const getRejectedAll = async (req, res, next) => {
   } catch (error) {
     console.error(error);
     return next("Something went wrong", SERVERERROR);
+  }
+};
+
+export const Userdelete = async (req, res, next) => {
+  const { uniqueid } = req.params;
+  console.log(uniqueid);
+  if (uniqueid === null) {
+    console.log("invalid request id is empty");
+    return next("Unique ID is required", BADREQUEST);
+  }
+  const user = await DeleteUser(uniqueid);
+  if (user) {
+    return res.status(SUCCESS).send({
+      message: "User deleted successfully",
+    });
+  } else {
+    return res.status(NOTFOUND).send({
+      message: "User not found",
+    });
   }
 };

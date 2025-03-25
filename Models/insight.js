@@ -15,6 +15,11 @@ const InsightSchema = new mongoose.Schema({
     work: {
         type: mongoose.Types.Decimal128,
         required: true
+    },
+    uniqueid:{
+        type: Number,
+        required: true,
+        unique: true,
     }
 });
 
