@@ -73,7 +73,6 @@ export const loginuser = async (req, res, next) => {
 
   try {
     const user = await loginUserService(email, password);
-
     if (!user.validatePassword(password)) {
       return next("Email or password is incorrect", UNAUTHORIZED);
     }
@@ -85,7 +84,7 @@ export const loginuser = async (req, res, next) => {
     });
   } catch (error) {
     console.error(error);
-    return next("Something went wrong", SERVERERROR);
+    return next("Something went wrong", SERVERERROR); 
   }
 };
 
