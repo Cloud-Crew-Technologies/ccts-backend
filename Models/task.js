@@ -32,7 +32,6 @@ const TaskSchema = new mongoose.Schema({
   },
   uniqueid: {
     type: Number,
-    unique: true,
     required: true,
   },
 });
