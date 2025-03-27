@@ -40,7 +40,6 @@ export const getbyIDTask = async (req, res, next) => {
   }
 };
 
-<<<<<<< HEAD
 export const updateByID = async (req, res, next) => {
   try {
     const { _id } = req.params;
@@ -65,6 +64,3 @@ export const updateByID = async (req, res, next) => {
     return next("Something went wrong", SERVERERROR);
   }
 };
-=======
-
->>>>>>> 706788bb78a3733f3652e04b881f11e0e18ed3e5
