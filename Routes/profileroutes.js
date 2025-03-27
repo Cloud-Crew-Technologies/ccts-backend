@@ -1,14 +1,22 @@
-import { getAll, getUserbyID, newProfile, newProfileById } from '../controller/profilecontroller.js';
-import express from 'express';
+import {
+  getAll,
+  getUserbyID,
+  newProfile,
+  ProfileupdateById,
+  loginprofile,
+} from "../controller/profilecontroller.js";
+import express from "express";
 
 const router = express.Router();
 
-router.route('/profile').get(getAll);
+router.route("/login").post(loginprofile);
+router.route("/getallprofile").get(getAll);
 
-router.route('/profile/:email').get(getUserbyID);
+router.route("/:email").get(getUserbyID);
 
-router.route('/profile').post(newProfile);
+router.route("/create").post(newProfile);
 
-router.route('/profile/:email').put(newProfileById);
+router.route("/:email").put(ProfileupdateById);
+
 
 export default router;

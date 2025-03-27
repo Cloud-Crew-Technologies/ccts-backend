@@ -1,5 +1,17 @@
-import { SUCCESS, BADREQUEST,NOTFOUND,UNAUTHORIZED,SERVERERROR } from "../constant/statuscode.js";
-import { getProfile, getProfileById, createProfile, updateProfileById } from "../services/profileservices.js";
+import {
+  SUCCESS,
+  BADREQUEST,
+  NOTFOUND,
+  UNAUTHORIZED,
+  SERVERERROR,
+} from "../constant/statuscode.js";
+import {
+  getProfile,
+  getProfileById,
+  createProfile,
+  updateProfileById,
+  loginProfileService
+} from "../services/profileservices.js";
 
 export const getAll = async (req, res, next) => {
   try {
@@ -33,6 +45,15 @@ export const getUserbyID = async (req, res, next) => {
 export const newProfile = async (req, res, next) => {
   try {
     const profiledata = req.body;
+    console.log("hi",profiledata.password);
+
+    // Validate that password is present in the request body
+    if (!profiledata.password) {
+      return res.status(BADREQUEST).send({
+        message: "Password is required in the request body",
+      });
+    }
+
     const profile = await createProfile(profiledata);
     return res.status(SUCCESS).send({
       message: "Profile added successfully.",
@@ -47,7 +68,7 @@ export const newProfile = async (req, res, next) => {
   }
 };
 
-export const newProfileById = async (req, res, next) => {
+export const ProfileupdateById = async (req, res, next) => {
   try {
     const { email } = req.params;
     if (!email) {
@@ -66,5 +87,25 @@ export const newProfileById = async (req, res, next) => {
   } catch (error) {
     console.error("Error: ", error);
     return res.status(SERVERERROR).send({ message: "Internal server error" });
+  }
+};
+
+export const loginprofile = async (req, res, next) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await loginProfileService(email, password);
+    if (!user.validPassword(password)) {
+      return next("Email or password is incorrect", UNAUTHORIZED);
+    }
+    const token = user.generateJWT();
+
+    return res.status(200).send({
+      message: "User Logged In",
+      token: token,
+    });
+  } catch (error) {
+    console.error(error);
+    return next("Something went wrong", SERVERERROR); 
   }
 };
