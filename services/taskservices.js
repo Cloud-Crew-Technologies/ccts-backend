@@ -21,3 +21,16 @@ export const TaskgetbyID = async (idfortask) => {
     throw error;
   }
 };
+
+export const updateTaskById = async (idfortask, data) => {
+  try {
+      const task1 = await Task.findByIdAndUpdate(idfortask, data, {
+        new: true,
+        runValidators: true,}
+      );
+      return task1;
+    } catch (error) {
+      console.error("Error in updateTaskById:", error);
+      throw error;
+  }
+}

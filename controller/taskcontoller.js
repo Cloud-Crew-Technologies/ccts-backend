@@ -1,4 +1,4 @@
-import { TaskcreateService, TaskgetbyID } from "../services/taskservices.js";
+import { TaskcreateService, TaskgetbyID, updateTaskById } from "../services/taskservices.js";
 import { BADREQUEST, SUCCESS } from "../constant/statuscode.js";
 import { NOTFOUND, UNAUTHORIZED, SERVERERROR } from "../constant/statuscode.js";
 
@@ -36,6 +36,31 @@ export const getbyIDTask = async (req, res, next) => {
     }
   } catch (error) {
     console.error("Error during task retrieval:", error);
+    return next("Something went wrong", SERVERERROR);
+  }
+};
+
+export const updateByID = async (req, res, next) => {
+  try {
+    const { _id } = req.params;
+    const {status} = req.body;
+    if (!_id) {
+      console.log("Invalid request: Task ID is empty");
+      return res.status(BADREQUEST).send({ message: "Task ID is required" });
+    }
+    const updatedTask = await updateTaskById(_id, req.body);
+    if (updatedTask) {
+      return res.status(SUCCESS).send({
+        message: "Task updated successfully.",
+        task: updatedTask,
+      });
+    } else {
+      return res.status(NOTFOUND).send({
+        message: "Task not found.",
+      });
+    }
+  } catch (error) {
+    console.error("Error during task update:", error);
     return next("Something went wrong", SERVERERROR);
   }
 };
