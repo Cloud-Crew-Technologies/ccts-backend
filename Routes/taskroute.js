@@ -3,7 +3,6 @@ import {
     getbyIDTask,
     updateByID
 } from "../controller/taskcontoller.js";
-<<<<<<< HEAD
 
 import{
     Pendingcreate,
@@ -16,11 +15,6 @@ import{
     getbyIDcompletedTask,
     completedupdateid
 } from "../controller/completedcontroller.js";
-=======
-import { AssignedTaskcreate,assignedgetbyIDTask } from "../controller/assigned_task_controller.js";
-import { RejectedTaskcreate,RejectedgetbyIDTask } from "../controller/rejected_task_controller.js";
-
->>>>>>> 706788bb78a3733f3652e04b881f11e0e18ed3e5
 import e from "express";
 
 const router = e.Router();
