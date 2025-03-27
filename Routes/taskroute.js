@@ -7,6 +7,6 @@ import e from "express";
 const router = e.Router();
 
 router.route("/create").post(Taskcreate);
-router.route("/:uniqueid").get(getbyIDTask);
+router.route("/:idfortask").get(getbyIDTask);
 
 export default router;

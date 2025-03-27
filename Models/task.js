@@ -30,8 +30,20 @@ const TaskSchema = new mongoose.Schema({
   completed_at: {
     type: Date,
   },
-  uniqueid: {
+  amount: {
     type: Number,
+    required: true,
+  },
+  mentor:{
+    type: String,
+    required: true,
+  },
+  mode:{
+    type:String,
+    required:true
+  },
+  idfortask: {
+    type: String,
     required: true,
   },
 });
@@ -40,3 +52,7 @@ export default Task;
 // task name
 // task description
 // required skills
+
+/*
+  
+*/ 
