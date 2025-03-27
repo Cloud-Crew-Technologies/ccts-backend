@@ -34,7 +34,7 @@ router.route("/pending/:_id").put(completedupdateid);
 
 //assigned_tasks section
 
-router.route("/assigned").post(AssignedTaskcreate);
+// router.route("/assigned").post(AssignedTaskcreate);
 router.route("/assigned/:idfortask").get(assignedgetbyIDTask);
 
 //rejected_tasks section
