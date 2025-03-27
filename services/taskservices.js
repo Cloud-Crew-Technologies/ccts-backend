@@ -13,7 +13,7 @@ export const TaskcreateService = async (data) => {
 
 export const TaskgetbyID = async (idfortask) => {
   try {
-    const task = await Task.findOne({ idfortask: idfortask });
+    const task = await Task.find({ idfortask: idfortask });
     console.log("TaskgetbyID:", idfortask);
     return task;
   } catch (error) {
