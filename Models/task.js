@@ -46,6 +46,10 @@ const TaskSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 }, { timestamps: true });
 const Task = mongoose.model("Task", TaskSchema);
 export default Task;
