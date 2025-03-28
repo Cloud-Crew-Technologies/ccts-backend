@@ -15,12 +15,14 @@ import{
 import{
     completedcreate,
     getbyIDcompletedTask,
-    completedupdateid
+    completedupdateid,
+    completedgetall
 } from "../controller/completedcontroller.js";
 
 import{
     AssignedTaskcreate,
-    assignedgetbyIDTask
+    assignedgetbyIDTask,
+    Asseignedgetall 
 } from "../controller/assigned_task_controller.js";
 import{
     RejectedTaskcreate,
@@ -43,6 +45,7 @@ router.route("/pending/:idfortask").get(getbyIDPendingTask);
 router.route("/pending/:_id").put(Pendingupdateid);
 
 router.route("/completed/create").post(completedcreate);
+router.route("/completed/getall").get(completedgetall);
 router.route("/completed/:idfortask").get(getbyIDcompletedTask);
 router.route("/completed/:_id").put(completedupdateid);
 
@@ -52,7 +55,7 @@ router.route("/assigned").post(AssignedTaskcreate);
 router.route("/assigned/:idfortask").get(assignedgetbyIDTask);
 
 //rejected_tasks section
-
+router.route("/assigned/all").get(Asseignedgetall);
 router.route("/rejected").post(RejectedTaskcreate);
 router.route("/rejected/:idfortask").get(RejectedgetbyIDTask);
 

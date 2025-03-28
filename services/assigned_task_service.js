@@ -21,3 +21,13 @@ export const AssignedTaskcreateService = async (data) => {
       throw error;
     }
 };
+
+export const AssignedTaskgetall = async () => {
+  try {
+    const tasks = await AssignedTaskModel.find(); // Use Task.find() to retrieve all tasks
+    return tasks;
+  } catch (error) {
+    console.error("Error in Taskgetall:", error);
+    throw error;
+  }
+};

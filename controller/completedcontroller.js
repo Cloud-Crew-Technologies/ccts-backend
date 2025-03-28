@@ -1,4 +1,4 @@
-import { CompletedTaskcreateService, CompletedTaskgetbyID, updateCompletedTaskById } from "../services/completedservices.js";
+import { CompletedTaskcreateService, CompletedTaskgetbyID, updateCompletedTaskById, completedTaskgetall } from "../services/completedservices.js";
 import { BADREQUEST, SUCCESS } from "../constant/statuscode.js";
 import { NOTFOUND, UNAUTHORIZED, SERVERERROR } from "../constant/statuscode.js";
 
@@ -60,6 +60,24 @@ export const completedupdateid = async (req, res, next) => {
       }
     } catch (error) {
       console.error("Error during Completed task update:", error);
+      return next("Something went wrong", SERVERERROR);
+    }
+  };
+
+  export const completedgetall = async (req, res, next) => { // Corrected: Added req
+    try {
+      console.log("hello");
+      const tasks = await completedTaskgetall();
+      console.log("Tasks from service:", tasks); // Log tasks from service
+      if (tasks && tasks.length > 0) { // Check if tasks is not null and has elements
+        return res.status(SUCCESS).send(tasks);
+      } else {
+        return res.status(NOTFOUND).send({
+          message: "No tasks found.",
+        });
+      }
+    } catch (error) {
+      console.error("Error during task retrieval:", error);
       return next("Something went wrong", SERVERERROR);
     }
   };

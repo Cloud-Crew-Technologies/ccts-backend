@@ -33,3 +33,13 @@ export const updateCompletedTaskById = async (idfortask, data) => {
         throw error;
     }
   }
+
+export const completedTaskgetall = async () => {
+  try {
+    const C_tasks = await CompletedTask.find(); // Use Task.find() to retrieve all tasks
+    return C_tasks;
+  } catch (error) {
+    console.error("Error in Taskgetall:", error);
+    throw error;
+  }
+};

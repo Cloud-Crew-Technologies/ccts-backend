@@ -1,4 +1,4 @@
-import { AssignedTaskcreateService, AssignedTaskgetbyID} from "../services/assigned_task_service.js";
+import { AssignedTaskcreateService, AssignedTaskgetbyID, AssignedTaskgetall} from "../services/assigned_task_service.js";
 import { BADREQUEST, SUCCESS } from "../constant/statuscode.js";
 import { NOTFOUND, UNAUTHORIZED, SERVERERROR } from "../constant/statuscode.js";
 
@@ -32,6 +32,24 @@ export const AssignedTaskcreate = async (req, res) => {
       } else {
         return res.status(NOTFOUND).send({
           message: "Task not found.",
+        });
+      }
+    } catch (error) {
+      console.error("Error during task retrieval:", error);
+      return next("Something went wrong", SERVERERROR);
+    }
+  };
+
+  export const Asseignedgetall = async (req, res, next) => { // Corrected: Added req
+    try {
+      console.log("hello");
+      const tasks = await AssignedTaskgetall();
+      console.log("Tasks from service:", tasks); // Log tasks from service
+      if (tasks && tasks.length > 0) { // Check if tasks is not null and has elements
+        return res.status(SUCCESS).send(tasks);
+      } else {
+        return res.status(NOTFOUND).send({
+          message: "No tasks found.",
         });
       }
     } catch (error) {
