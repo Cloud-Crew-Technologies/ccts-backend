@@ -7,9 +7,9 @@ const TaskSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  name:{
-    type:String,
-    required:true
+  name: {
+    type: String,
+    required: true,
   },
   description: {
     type: String,
@@ -23,10 +23,6 @@ const TaskSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  created_at: {
-    type: Date,
-    default: () => new Date(),
-  },
   deadline_date: {
     type: Date,
     required: true,
@@ -38,19 +34,19 @@ const TaskSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  mentor:{
+  mentor: {
     type: String,
     required: true,
   },
-  mode:{
-    type:String,
-    required:true
+  mode: {
+    type: String,
+    required: true,
   },
   idfortask: {
     type: String,
     required: true,
   },
-});
+}, { timestamps: true });
 const Task = mongoose.model("Task", TaskSchema);
 export default Task;
 // task name
@@ -59,4 +55,4 @@ export default Task;
 
 /*
   
-*/ 
+*/
