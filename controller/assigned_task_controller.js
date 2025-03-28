@@ -1,4 +1,4 @@
-import { AssignedTaskcreateService, AssignedTaskgetbyID, AssignedTaskgetall} from "../services/assigned_task_service.js";
+import { AssignedTaskcreateService, AssignedTaskgetbyID, AssignedTaskgetall, updateAssignedTaskById} from "../services/assigned_task_service.js";
 import { BADREQUEST, SUCCESS } from "../constant/statuscode.js";
 import { NOTFOUND, UNAUTHORIZED, SERVERERROR } from "../constant/statuscode.js";
 
@@ -57,3 +57,29 @@ export const AssignedTaskcreate = async (req, res) => {
       return next("Something went wrong", SERVERERROR);
     }
   };
+
+  export const AssignedTaskupdate = async (req, res, next) => {
+    try {
+      const { _id } = req.params;
+      const { status } = req.body;
+      if (!_id) {
+        console.log("Invalid request: Task ID is empty");
+        return res.status(BADREQUEST).send({ message: "Task ID is required" });
+      }
+      const updatedTask = await updateAssignedTaskById(_id, req.body);
+      if (updatedTask) {
+        return res.status(SUCCESS).send({
+          message: "Task updated successfully.",
+          task: updatedTask,
+        });
+      } else {
+        return res.status(NOTFOUND).send({
+          message: "Task not found.",
+        });
+      }
+    } catch (error) {
+      console.error("Error during task update:", error);
+      return next("Something went wrong", SERVERERROR);
+    }
+  };
+  

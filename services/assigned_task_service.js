@@ -31,3 +31,15 @@ export const AssignedTaskgetall = async () => {
     throw error;
   }
 };
+export const updateAssignedTaskById = async (idfortask, data) => {
+  try {
+    const task1 = await AssignedTaskModel.findByIdAndUpdate(idfortask, data, {
+      new: true,
+      runValidators: true,
+    });
+    return task1;
+  } catch (error) {
+    console.error("Error in updateTaskById:", error);
+    throw error;
+  }
+};

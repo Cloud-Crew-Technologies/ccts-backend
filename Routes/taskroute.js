@@ -22,7 +22,8 @@ import{
 import{
     AssignedTaskcreate,
     assignedgetbyIDTask,
-    Asseignedgetall 
+    Asseignedgetall,
+    AssignedTaskupdate 
 } from "../controller/assigned_task_controller.js";
 import{
     RejectedTaskcreate,
@@ -50,12 +51,12 @@ router.route("/completed/:idfortask").get(getbyIDcompletedTask);
 router.route("/completed/:_id").put(completedupdateid);
 
 //assigned_tasks section
-
+router.route("/assigned/all").get(Asseignedgetall);
 router.route("/assigned").post(AssignedTaskcreate);
 router.route("/assigned/:idfortask").get(assignedgetbyIDTask);
+router.route("/assigned/:_id").put(AssignedTaskupdate);
 
 //rejected_tasks section
-router.route("/assigned/all").get(Asseignedgetall);
 router.route("/rejected").post(RejectedTaskcreate);
 router.route("/rejected/:idfortask").get(RejectedgetbyIDTask);
 
