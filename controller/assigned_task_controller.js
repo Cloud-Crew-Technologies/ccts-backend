@@ -42,18 +42,18 @@ export const AssignedTaskcreate = async (req, res) => {
 
   export const Asseignedgetall = async (req, res, next) => { // Corrected: Added req
     try {
-      console.log("hello");
+      // console.log("hello");
       const tasks = await AssignedTaskgetall();
-      console.log("Tasks from service:", tasks); // Log tasks from service
+      console.log("Assigned Tasks from service:", tasks); // Log tasks from service
       if (tasks && tasks.length > 0) { // Check if tasks is not null and has elements
         return res.status(SUCCESS).send(tasks);
       } else {
         return res.status(NOTFOUND).send({
-          message: "No tasks found.",
+          message: "No Assigned tasks found.",
         });
       }
     } catch (error) {
-      console.error("Error during task retrieval:", error);
+      console.error("Error during Assigned task retrieval:", error);
       return next("Something went wrong", SERVERERROR);
     }
   };
@@ -63,22 +63,22 @@ export const AssignedTaskcreate = async (req, res) => {
       const { _id } = req.params;
       const { status } = req.body;
       if (!_id) {
-        console.log("Invalid request: Task ID is empty");
-        return res.status(BADREQUEST).send({ message: "Task ID is required" });
+        console.log("Invalid request: Assigned Task ID is empty");
+        return res.status(BADREQUEST).send({ message: "Assigned Task ID is required" });
       }
       const updatedTask = await updateAssignedTaskById(_id, req.body);
       if (updatedTask) {
         return res.status(SUCCESS).send({
-          message: "Task updated successfully.",
+          message: "Assigned Task updated successfully.",
           task: updatedTask,
         });
       } else {
         return res.status(NOTFOUND).send({
-          message: "Task not found.",
+          message: "Assigned Task not found.",
         });
       }
     } catch (error) {
-      console.error("Error during task update:", error);
+      console.error("Error during Assigned task update:", error);
       return next("Something went wrong", SERVERERROR);
     }
   };
