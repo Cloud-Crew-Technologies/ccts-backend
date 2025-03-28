@@ -32,8 +32,8 @@ import e from "express";
 const router = e.Router();
 
 
-router.route("/all").get(getall);
 router.route("/create").post(Taskcreate);
+router.route("/all").get(getall);
 router.route("/:idfortask").get(getbyIDTask);
 router.route("/:_id").put(updateByID);
 
