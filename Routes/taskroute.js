@@ -1,13 +1,15 @@
 import {
     Taskcreate,
     getbyIDTask,
-    updateByID
+    updateByID,
+    getall
 } from "../controller/taskcontoller.js";
 
 import{
     Pendingcreate,
     getbyIDPendingTask,
-    Pendingupdateid
+    Pendingupdateid,
+    Pendinggetall
 } from "../controller/pendingcontroller.js";
 
 import{
@@ -30,17 +32,19 @@ import e from "express";
 const router = e.Router();
 
 
+router.route("/all").get(getall);
 router.route("/create").post(Taskcreate);
 router.route("/:idfortask").get(getbyIDTask);
 router.route("/:_id").put(updateByID);
 
 router.route("/pending/create").post(Pendingcreate);
+router.route("/pending/getall").get(Pendinggetall);
 router.route("/pending/:idfortask").get(getbyIDPendingTask);
 router.route("/pending/:_id").put(Pendingupdateid);
 
-router.route("/pending/create").post(completedcreate);
-router.route("/pending/:idfortask").get(getbyIDcompletedTask);
-router.route("/pending/:_id").put(completedupdateid);
+router.route("/completed/create").post(completedcreate);
+router.route("/completed/:idfortask").get(getbyIDcompletedTask);
+router.route("/completed/:_id").put(completedupdateid);
 
 //assigned_tasks section
 

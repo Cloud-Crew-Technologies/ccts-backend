@@ -14,7 +14,6 @@ export const TaskcreateService = async (data) => {
 export const TaskgetbyID = async (idfortask) => {
   try {
     const task = await Task.find({ idfortask: idfortask });
-    console.log("TaskgetbyID:", idfortask);
     return task;
   } catch (error) {
     console.error("Error in TaskgetbyID:", error);
@@ -24,13 +23,23 @@ export const TaskgetbyID = async (idfortask) => {
 
 export const updateTaskById = async (idfortask, data) => {
   try {
-      const task1 = await Task.findByIdAndUpdate(idfortask, data, {
-        new: true,
-        runValidators: true,}
-      );
-      return task1;
-    } catch (error) {
-      console.error("Error in updateTaskById:", error);
-      throw error;
+    const task1 = await Task.findByIdAndUpdate(idfortask, data, {
+      new: true,
+      runValidators: true,
+    });
+    return task1;
+  } catch (error) {
+    console.error("Error in updateTaskById:", error);
+    throw error;
   }
-}
+};
+
+export const Taskgetall = async () => {
+  try {
+    const tasks = await Task.find(); // Use Task.find() to retrieve all tasks
+    return tasks;
+  } catch (error) {
+    console.error("Error in Taskgetall:", error);
+    throw error;
+  }
+};

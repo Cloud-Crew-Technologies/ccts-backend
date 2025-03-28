@@ -1,6 +1,10 @@
-import { TaskcreateService, TaskgetbyID, updateTaskById } from "../services/taskservices.js";
-import { BADREQUEST, SUCCESS } from "../constant/statuscode.js";
-import { NOTFOUND, UNAUTHORIZED, SERVERERROR } from "../constant/statuscode.js";
+import {
+  TaskcreateService,
+  TaskgetbyID,
+  updateTaskById,
+  Taskgetall,
+} from "../services/taskservices.js";
+import { BADREQUEST, SUCCESS, NOTFOUND, UNAUTHORIZED, SERVERERROR } from "../constant/statuscode.js";
 
 export const Taskcreate = async (req, res) => {
   try {
@@ -43,7 +47,7 @@ export const getbyIDTask = async (req, res, next) => {
 export const updateByID = async (req, res, next) => {
   try {
     const { _id } = req.params;
-    const {status} = req.body;
+    const { status } = req.body;
     if (!_id) {
       console.log("Invalid request: Task ID is empty");
       return res.status(BADREQUEST).send({ message: "Task ID is required" });
@@ -61,6 +65,24 @@ export const updateByID = async (req, res, next) => {
     }
   } catch (error) {
     console.error("Error during task update:", error);
+    return next("Something went wrong", SERVERERROR);
+  }
+};
+
+export const getall = async (req, res, next) => { // Corrected: Added req
+  try {
+    console.log("hello");
+    const tasks = await Taskgetall();
+    console.log("Tasks from service:", tasks); // Log tasks from service
+    if (tasks && tasks.length > 0) { // Check if tasks is not null and has elements
+      return res.status(SUCCESS).send(tasks);
+    } else {
+      return res.status(NOTFOUND).send({
+        message: "No tasks found.",
+      });
+    }
+  } catch (error) {
+    console.error("Error during task retrieval:", error);
     return next("Something went wrong", SERVERERROR);
   }
 };

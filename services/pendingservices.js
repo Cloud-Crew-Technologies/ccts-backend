@@ -14,7 +14,6 @@ export const PendingTaskcreateService = async (data) => {
 export const PendingTaskgetbyID = async (idfortask) => {
   try {
     const pendingtask = await PendingTask.find({ idfortask: idfortask });
-    console.log("Pending TaskgetbyID:", idfortask);
     return pendingtask;
   } catch (error) {
     console.error("Error in Pending TaskgetbyID:", error);
@@ -33,3 +32,14 @@ export const updatePendingTaskById = async (idfortask, data) => {
         throw error;
     }
   }
+
+
+  export const PendingTaskgetall = async () => {
+    try {
+      const tasks = await PendingTask.find(); // Use Task.find() to retrieve all tasks
+      return tasks;
+    } catch (error) {
+      console.error("Error in Taskgetall:", error);
+      throw error;
+    }
+  };
