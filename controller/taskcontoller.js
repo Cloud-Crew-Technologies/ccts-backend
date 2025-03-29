@@ -101,7 +101,7 @@ export const getall = async (req, res, next) => {
 export const getforidfortask = async (req, res, next) => {
   try {
     const { idfortask } = req.params;
-    const task = await getTaskById(idfortask);
+    const task = await TaskgetbyIdfortask(idfortask);
     if (task) {
       return res.status(SUCCESS).send(task);
     } else {

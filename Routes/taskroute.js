@@ -43,7 +43,7 @@ router.route("/create").post(Taskcreate);
 router.route("/all").get(getall);
 router.route("/:_id").get(getbyIDTask);
 router.route("/:_id").put(updateByID);
-router.route("/:idfortask").delete(getforidfortask);
+router.route("/check/:idfortask").get(getforidfortask);
 
 // pending_tasks_section
 router.route("/pending/create").post(Pendingcreate);
