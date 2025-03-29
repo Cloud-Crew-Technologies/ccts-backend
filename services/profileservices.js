@@ -10,9 +10,9 @@ export const getProfile = async () => {
   }
 };
 
-export const getProfileById = async (email) => {
+export const getProfileById = async (name) => {
   try {
-    const profile = await Profiles.findOne({ email: email });
+    const profile = await Profiles.findOne({ name: name });
     return profile;
   } catch (error) {
     console.log("Error: ", error);
@@ -37,9 +37,9 @@ export const createProfile = async (data) => {
     throw error;
   }
 };
-export const updateProfileById = async (email, data) => {
+export const updateProfileById = async (name, data) => {
   try {
-    const profile = await Profiles.findOneAndUpdate({ email: email }, data, {
+    const profile = await Profiles.findOneAndUpdate({ name: name }, data, {
       new: true,
     });
     return profile;

@@ -25,12 +25,12 @@ export const getAll = async (req, res, next) => {
 
 export const getUserbyID = async (req, res, next) => {
   try {
-    const { email } = req.params;
-    if (!email) {
-      console.log("Invalid request: email is empty");
-      return res.status(BADREQUEST).send({ message: "Email is required" });
+    const { name } = req.params;
+    if (!name) {
+      console.log("Invalid request: name is empty");
+      return res.status(BADREQUEST).send({ message: "name is required" });
     }
-    const user = await getProfileById(email);
+    const user = await getProfileById(name);
     if (user) {
       return res.status(SUCCESS).send(user);
     } else {
@@ -70,12 +70,12 @@ export const newProfile = async (req, res, next) => {
 
 export const ProfileupdateById = async (req, res, next) => {
   try {
-    const { email } = req.params;
-    if (!email) {
-      console.log("Invalid request: Email is empty");
-      return res.status(BADREQUEST).send({ message: "Email is required" });
+    const { name } = req.params;
+    if (!name) {
+      console.log("Invalid request: name is empty");
+      return res.status(BADREQUEST).send({ message: "name is required" });
     }
-    const updatedUser = await updateProfileById(email, req.body);
+    const updatedUser = await updateProfileById(name, req.body);
     if (updatedUser) {
       return res.status(SUCCESS).send({
         message: "Profile updated successfully.",
