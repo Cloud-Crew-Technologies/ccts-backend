@@ -2,7 +2,8 @@ import {
     Taskcreate,
     getbyIDTask,
     updateByID,
-    getall
+    getall,
+    getforidfortask
 } from "../controller/taskcontoller.js";
 
 import{
@@ -42,6 +43,7 @@ router.route("/create").post(Taskcreate);
 router.route("/all").get(getall);
 router.route("/:_id").get(getbyIDTask);
 router.route("/:_id").put(updateByID);
+router.route("/:idfortask").delete(getforidfortask);
 
 // pending_tasks_section
 router.route("/pending/create").post(Pendingcreate);

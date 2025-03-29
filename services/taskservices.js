@@ -43,3 +43,13 @@ export const Taskgetall = async () => {
     throw error;
   }
 };
+
+export const TaskgetbyIdfortask = async (idfortask) => {
+  try {
+    const task = await Task.findOne({ idfortask: idfortask });
+    return task;
+  } catch (error) {
+    console.error("Error in TaskgetbyIdfortask:", error);
+    throw error;
+  }
+};
