@@ -46,7 +46,7 @@ export const Taskgetall = async () => {
 
 export const TaskgetbyIdfortask = async (idfortask) => {
   try {
-    const task = await Task.findOne({ idfortask: idfortask });
+    const task = await Task.find({ idfortask: idfortask });
     return task;
   } catch (error) {
     console.error("Error in TaskgetbyIdfortask:", error);
