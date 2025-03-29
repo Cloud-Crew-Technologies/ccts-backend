@@ -11,9 +11,9 @@ export const TaskcreateService = async (data) => {
   }
 };
 
-export const TaskgetbyID = async (idfortask) => {
+export const TaskgetbyID = async (_id) => {
   try {
-    const task = await Task.find({ idfortask: idfortask });
+    const task = await Task.findById({ _id: _id });
     return task;
   } catch (error) {
     console.error("Error in TaskgetbyID:", error);

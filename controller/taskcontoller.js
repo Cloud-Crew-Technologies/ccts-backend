@@ -28,9 +28,9 @@ export const Taskcreate = async (req, res) => {
 
 export const getbyIDTask = async (req, res, next) => {
   try {
-    const { idfortask } = req.params;
+    const { _id } = req.params;
 
-    const task = await TaskgetbyID(idfortask);
+    const task = await TaskgetbyID(_id);
     if (task) {
       return res.status(SUCCESS).send(task);
     } else {

@@ -40,7 +40,7 @@ const router = e.Router();
 // task_section
 router.route("/create").post(Taskcreate);
 router.route("/all").get(getall);
-router.route("/:idfortask").get(getbyIDTask);
+router.route("/:_id").get(getbyIDTask);
 router.route("/:_id").put(updateByID);
 
 // pending_tasks_section
